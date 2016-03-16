@@ -1,0 +1,111 @@
+/*
+ * app.css
+ * Main Styles for Project
+ *
+ * @date
+ * @version
+ *
+ */
+
+body {
+    height:                 auto;
+    background-image:       linear-gradient(to bottom, #e8efe0 0%, #f4f4e4 20%, #f4f4e4 80%, #f4f4e4 100%) fixed;
+    color:                  #777;
+    font-size:              0.9375rem;
+    font-family:            'Helvetica', Arial, sans-serif;
+}
+
+a:link, a:visited, a:focus, a[href^='mailto']:hover {
+    color:                  #dc6a6d;
+    text-decoration:        none;
+    transition:             color 0.4s ease-in-out;
+}
+
+
+a[href^="mailto"] { color: #9A857A; }
+a[href^="mailto"]:hover { color: #b9c9af; }
+
+a:hover, a:active {
+    color:                  #b9c9af;
+    text-decoration:        none;
+    transition:             color 0.4s ease-in-out;
+}
+
+
+h1 a:link, h1 a:visited, h1 a:focus,
+h2 a:link, h2 a:visited, h2 a:focus,
+h3 a:link, h3 a:visited, h3 a:focus,
+h4 a:link, h4 a:visited, h4 a:focus,
+h5 a:link, h5 a:visited, h5 a:focus,
+h6 a:link, h6 a:visited, h6 a:focus {
+    color:                  #9a857a;
+    text-decoration:        none;
+    transition:             color 0.4s ease-in-out;
+}
+
+h1 a:hover, h1 a:active,
+h2 a:hover, h2 a:active,
+h3 a:hover, h3 a:active,
+h4 a:hover, h4 a:active,
+h5 a:hover, h5 a:active,
+h6 a:hover, h6 a:active {
+    color:                  #a4bf9e;
+    text-decoration:        none;
+    transition:             color 0.4s ease-in-out;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin-top:             0.3rem;
+    margin-bottom:          0.6rem;
+    color:                  #777;
+}
+
+p { font-size: 0.9375rem; }
+
+hr {
+    margin:                 2.4375rem 0 2.375rem 0;
+    border-color:           #d0d7c9;
+}
+
+table thead tr th, table thead tr td,
+table tr th, table tr td { color: #777; }
+
+input[type='submit'] {
+    position:               relative;
+    z-index:                2;
+    display:                block;
+    overflow:               visible;
+    padding-top:            0;
+    padding-bottom:         0;
+    width:                  100%;
+    height:                 2.3125rem;
+    border-width:           0;
+    border-style:           solid;
+    text-align:             center;
+    font-size:              0.875rem;
+    line-height:            2.3125rem;
+}
+
+::-moz-selection {
+    background:             #a4bf9e;
+    color:                  #fffffa;
+}
+
+::selection {
+    background:             #a4bf9e;
+    color:                  #fffffa;
+}
+
+
+figure { margin: 0; }
+
+table th { font-weight: bold; }
+table td, table th { padding: 9px 10px; text-align: left; }
+
+.foo {
+    transform: translate(12px, 50%);
+        display: flex;
+    display: grid;
+    background-image:         linear-gradient(#e8efe0 0%, #f4f4e4 20%, #f4f4e4 80%, #f4f4e4 80%, #cdcdb9 80%, #cdcdb9 100%);
+}
+/*# sourceMappingURL=app.css.map */

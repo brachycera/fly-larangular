@@ -1,0 +1,15 @@
+*.sublime-project
+*.sublime-workspace
+*.todo
+.DS_Store
+.env
+bootstrap/cache/
+bower_components/
+Homestead.json
+Homestead.yaml
+node_modules/
+npm-debug.log
+public/build/
+storage/
+Thumbs.db
+vendor

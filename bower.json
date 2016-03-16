@@ -1,0 +1,13 @@
+  {
+  "name": "",
+  "description": "",
+  "main": "",
+  "authors": [],
+  "homepage": "http://PROJECT_HOST",
+  "version": "1.0.",
+  "dependencies": {
+    "angular": "1",
+    "angular-ui-router": "ui-router#^0.2.18",
+    "restangular": "^1.5.2"
+  }
+}

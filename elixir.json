@@ -1,0 +1,8 @@
+{
+    "js": {
+        "outputFolder": "public/js"
+    },
+    "css": {
+        "outputFolder": "/resources/assets/css"
+    }
+}

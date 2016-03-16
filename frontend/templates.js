@@ -1,0 +1,2 @@
+(function(){'use strict';
+angular.module('module.templates', []).run(['$templateCache', function($templateCache) {$templateCache.put('../frontend/components/landingPage/landingPage.html','<div>\n<h1>Landing Page</h1>\n<pre>{{vm | json}}</pre>\n<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia, cum. Pariatur facilis ea sint, numquam voluptatibus ratione commodi adipisci qui!</p>\n</div>');}]);})();
