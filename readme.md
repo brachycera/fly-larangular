@@ -141,6 +141,8 @@ The module api in the folder `frontend/components/api/` calls the Laravel Api at
 # Troubleshooting
 - Up to date php Versions for osX - http://php-osx.liip.ch
 - Check folders for correct permissions. `bootstrap/cache/` and `storage/`
+- ERROR: failed to open stream: Permission denied' in /PATH_TO/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php:81. Try to `mkdir storage/framework/views`. Afterwards type `php artisan cache:clear` followed by `chmod -R 777 storage` and `composer dump-autoload`
+- Can't update composer - file_put_contents(PATH_TO/bootstrap/cache/XXX): failed to open stream: No such file or directory - Try to `mkdir /bootstrap/cache/` folder, [www.laracasts.com](https://laracasts.com/discuss/channels/general-discussion/cant-composer-update-1)
 
 ## Reading List
 
