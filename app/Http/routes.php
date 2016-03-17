@@ -17,7 +17,6 @@
 
 Route::get('/', 'FrontendController@serveApp');
 Route::get('/unsupported-browser', 'FrontendController@unsupported');
-
 Route::get('/api', 'ApiController@index');
 
 /*

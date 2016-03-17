@@ -1,146 +1,155 @@
-# fly-seed for Laravel & Angular project
-> Version 1.0
+# fly-seed - A Laravel & Angular project boilerplate
+> Version 0.1b
 
-This is a dummy bootstrap project seed, which should help getting easily started with a Laravel/Angular webapp. They idea came from
+This is a bootstrap project seed, which should help getting easily started with a simple Laravel/Angular webapp. They idea came from
 [http://www.sitepoint.com/](http://www.sitepoint.com/flexible-and-easily-maintainable-laravel-angular-material-apps/) and
 [https://laravel-angular.readme.io/](Laravel Angular Material Starter). The motivations to build my own project seed, was that I like a
-different approach on some topics and that I wanted to learn more about webapp's.
+different approach on some topics and that I wanted to learn more about webapps and the Laravel Framework.
 
-#### Table of Contents
-- [Overview](#overview)
+The project is pretty barebones, only a simple example of and Angular frontend with a single call to a Laravel Api is provided.
+Build and Production Tasks for gulp/Elixir come out of the box.
+
+### Table of Contents
 - [Installation](#installation)
-- [Project Folder Structure](#project-folder-structure)
-- [Development Tools](#development-tools)
-- [Deploy](#deploy)
+- [Taskrunner](#taskrunner)
+- [Laravel ](#laravel)
+- [Angular ](#angular)
 - [Troubleshooting](#troubleshooting)
+- [Release History](#releasehistory)
 
 
-# Installation
-Install all the frameworks and tools needed to get the web-app running
+## Installation
+Clone the repository and install all dependencies, with the following terminal commands. Composer and Node
+should already be installed on your system.
+
+`composer install`
+
+`npm install`
+
+`bower install`
+
+## Taskrunner
+The standard Laravel Elixir Tasks are extended with a few tasks. Sourcemaps will be generated depending on the Elixir.config.
+All files will be minified/uglifyed in `--production`.
+
+### Standard/Watch Tasks
+
+`gulp && gulp watch`
+
+##### Production Modus
+
+`gulp --production`
+
+### Bower Tasks
+The Bower Tasks uses the [main-bower-files](https://github.com/ck86/main-bower-files) package to grab all dependencies JS and
+CSS files. Call the Bower Tasks independently with the following commands.
+
+`gulp bower-js`
+
+`gulp bower-css`
+
+- Print the filepaths from the selected dependencies to the terminal, with the option setting `debugging: true` from main-bower-files
+- To **exclude packages** from the selection see the projects `bower.json` file.
+- In `--production` modus the files will be minified/uglifyed.
+
+The following files will be created by the Bower Tasks.
+
+    public/css/vendor.css
+    public/css/vendor.map.css
+    public/js/vendor.js
+    public/js/vendor.map.js
+
+### Angular Tasks
+The angular-js Task grabs all JS files from `frontend/**/*.js` an concate them. Angular-tpl furthermore uses the
+[gulp-angular-templatecache](https://github.com/miickel/gulp-angular-templatecache) package to build an independent
+angular module, which injects the `frontend/**/*.html` templates into the Browser-Cache.  Call the Angular Tasks independently
+with the following commands.
+
+`gulp angular-js`
+
+`gulp angular-css`
+
+- Print the filepaths from the selected files to the terminal, with the option setting `showFiles: true` from gulp-size
+- In `--production` modus the files will be uglifyed.
+
+The following files will be created by the Angular Tasks.
+
+    public/js/app.js
+    public/js/app.map.js
+    frontend/templates.js // this file will be added to app.js in --production
+
+The reason for splitting the templates from the main `app.js` file while developing, is to
+keep gulp snappy when **lifereload** is used.
+
+Use this snippet in the main blade template to load the generated `template.js` while in debug mode.
+
+    @if ( Config::get('app.debug') )
+        <script src="../frontend/templates.js"></script>
+    @endif
+
+### Style Tasks
+Standard Elixir Style Task.
+
+`gulp styles`
+
+The following file will be created by the style task.
+
+    public/css/app.css
+
+### PostCSS Task
+To use `autoprefixer` with plain CSS, the `laravel-elixir-postcss` package is needed. As `laravel-elixir 4.2.1` only supports
+`autoprefixer` for sass/less.
+
+**Angular Tasks**
+
+`gulp angular-js`
+
+`gulp angular-tpl`
+
 
 
 ## [Laravel](https://laravel.com)
 
-First install [composer](https://getcomposer.org/).
+The frameworks is pretty vanilla, only two Controllers and three Routes were added. Also [Laravel debug bar](https://github.com/barryvdh/laravel-debugbar) will
+be installed with composer install command.
 
-Run the following composer command to create a folder e.g. "fly-seed" and scaffold the latest version of
-Laravel Framework inside this folder. The project folder should be accessible through a webserver.
+### Controllers
+FrontendController calls `resources/views/index.blade.php`, which then starts the Angular App. The ApiController is just a
+single Example Class with a single Method which returns an array.
 
-`composer create-project laravel/laravel fly-seed --prefer-dist`
+    app/Http/Controller/apiController.php
+    app/Http/Controller/frontendController.php
 
-After completing the installation edit the `.env` to adjust the database settings. Visited the created folder with a Browser, Laravel should now be up and running.
+### Routes
+Three routes were added to `app/Http/routes.php`, the `/api` route will be used by Angular's Restangular.
 
-### Laravel Packages
-Install the following packages and add them to Class Alias array in `config/app.php`.
-
-- [Laravel debug bar](https://github.com/barryvdh/laravel-debugbar) - `composer require barryvdh/laravel-debugbar`
-
-### Create Laravel Route to Frontend Framework
-Create a controller to interact with the frontend framework.
-
-`php artisan make:controller FrontendController`
-
-## Node Packages
-Run `npm install` and install all packages from the provided `package.json`.
-
-### gulp Packages
-Important gulp packages, besides the one which get installed from the `package.json`
-
-#### [gulp-load-plugins](https://github.com/jackfranklin/gulp-load-plugins)
-Loads gulp plugins from package dependencies and attaches them to an object of your choice. This saves adding every gulp package with `require`. We use
-just `$` to include any dependency of choice.
-e.g.
-`$.util.log( report );`
-
-#### [main-bower-files](https://github.com/ck86/main-bower-files)
-This package reads the projects own `bower.json` for `dependencies` - returns an array of files which were defined by the
-**main property** from the **packages** `bower.json`.
-
-Using the main-bower-files array to automatically collect the bower dependencies. Installing dependencies packages
-with bower will automatically add them to the build process.
-
-To *restrict packages from build* process use `bower.json`
-
-    {
-        "name": "your-package-name",
-        "dependencies": {
-            "BOWER-PACKAGE": "*"
-        },
-        "overrides": {
-            "BOWER-PACKAGE": {
-                "main": {
-                    "development": "file.js",
-                    "production": "file.min.js"
-                }
-            }
-        }
-    }
-
-### gulp Tasks
-All gulp tasks can be found in `/task` To start a build for production use the flag `--production` with gulp commands.
-
-## Build Tasks
-`gulp bower-js` and `gulp bower-css` tasks build the two files `/public/js/vendor.js` and `/public/css/vendor.css`
+    Route::get('/', 'FrontendController@serveApp');
+    Route::get('/unsupported-browser', 'FrontendController@unsupported');
+    Route::get('/api', 'ApiController@index');
 
 
-## Bower
-For easier management of frontend dependencies install Bower.
+## [Angular](https://angularjs.org/)
+All Angular files are in the folder `frontend/`. Since I prefer a modular approach all modules are subfolder from `frontend/components/`.
 
+### Configuration
+Rename `constants.example.js` to `constants.js` and fill out the credentials.
 
-    npm install -g bower
-    bower init
-
-### Angular and Angular Packages
-Install current Angular Version 1.x and Angular Packages with Bower.
-
-    bower install angular#1 --save
-    bower install angular-material --save
-    bower install ui-router --save
-    bower install restangular --save
-
-* https://material.angularjs.org/latest
-* https://github.com/mgonto/restangular
-* https://github.com/angular-ui/ui-router
-
-
-
-
-# Project Structure
-This shows the example "project_name" folder and files structures without the generated files and folder from the frameworks and package managers.
-Create them on your own if not already present in the repository.
-
-    -- project_name
-        -- framework
-            +- config
-            +- components
-        -- config
-            app.php // edit host parameter to fit your environment
-        -- public
-            .htacess // edit RewriteBase to fit your environment
-
-
-# Deploy
-https://medium.com/laravel-news/the-simple-guide-to-deploy-laravel-5-application-on-shared-hosting-1a8d0aee923e#.ii5bid74z
-
-# Development Tools & Rules
-These tools and plugins should be use to keep a consistent code-base.
-
-## Laravel
-Use [Laravel5 plugin](https://github.com/robbyrussell/oh-my-zsh/blob/master/plugins/laravel5/laravel5.plugin.zsh) for `oh-my-zsh` to get Terminal Aliases for `artisan`.
-
-## CSS
-Use [CSScomb](https://github.com/csscomb/) and/or [Perfectionist](https://github.com/ben-eb/perfectionist) for clean markup,
-sort all CSS-Rules with CSScomb or [PostCSS sorting](https://github.com/hudochenkov/postcss-sorting) in Sublime Text.
-PostCSS plugins will also be run at grunt build task!
-
-* https://github.com/nDmitry/grunt-postcss
-* https://github.com/hudochenkov/postcss-sorting // sort order type ZEN
-* https://github.com/ben-eb/perfectionist
-
-##### A `.csscomb.json` config file is provided in the bootstrap project
-##### Sorting [order type](https://github.com/csscomb/csscomb.js/blob/master/config/zen.json) must be `zen`
+### REST Api
+The module api in the folder `frontend/components/api/` calls the Laravel Api at http:localhost/api
 
 
 # Troubleshooting
 - Up to date php Versions for osX - http://php-osx.liip.ch
 - Check folders for correct permissions. `bootstrap/cache/` and `storage/`
+
+## Reading List
+
+- [Angular Material](https://material.angularjs.org/latest)
+- [The simple guide to deploy Laravel 5 application on shared hosting](https://medium.com/laravel-news/the-simple-guide-to-deploy-laravel-5-application-on-shared-hosting-1a8d0aee923e#.ii5bid74z)
+
+### Tools & Helpers
+- [Laravel5 oh-my-zsh plugin](https://github.com/robbyrussell/oh-my-zsh/blob/master/plugins/laravel5/laravel5.plugin.zsh)
+- [CSScomb](https://github.com/csscomb/) - an `.csscomb.json` config file is provided in the bootstrap project
+
+# Release History
+- Version 0.1 beta Release
